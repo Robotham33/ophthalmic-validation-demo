@@ -1992,5 +1992,13 @@ body {
     .topbar-right {
         flex-wrap: wrap;
     }
+}
+.status-check.status-info {
+    border-color: #1267ed;
+    color: #1267ed;
+}
 
+.status-check.status-warning {
+    border-color: #f59e0b;
+    color: #f59e0b;
 }

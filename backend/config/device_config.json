@@ -5,7 +5,7 @@
 
   "device_status": "READY",
 
-  "sensor_connected": false,
+  "sensor_connected": true,
   "sensor_quality": 96,
 
   "calibrated": true,
@@ -18,5 +18,23 @@
   "patient_id": "PAT-00145",
 
   "measurement_in_progress": false,
-  "last_measurement": null
+
+  "last_measurement": null,
+
+  "measurements_by_eye": {
+    "LEFT": null,
+    "RIGHT": null
+  },
+
+  "measurement_profile": {
+    "pressure": 18.4,
+    "quality": 96,
+    "duration_seconds": 2,
+
+    "valid_pressure_min": 5.0,
+    "valid_pressure_max": 35.0,
+    "minimum_quality": 70
+  },
+
+  "history": []
 }
