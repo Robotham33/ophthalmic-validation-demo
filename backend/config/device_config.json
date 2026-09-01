@@ -1,0 +1,22 @@
+{
+  "device_model": "EYM-2000",
+  "software_version": "2.4.1",
+  "firmware_version": "2.4.1",
+
+  "device_status": "READY",
+
+  "sensor_connected": false,
+  "sensor_quality": 96,
+
+  "calibrated": true,
+
+  "selected_eye": "LEFT",
+
+  "battery_level": 85,
+  "temperature": 36.7,
+
+  "patient_id": "PAT-00145",
+
+  "measurement_in_progress": false,
+  "last_measurement": null
+}

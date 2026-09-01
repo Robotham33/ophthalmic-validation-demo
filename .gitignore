@@ -1,0 +1,22 @@
+# Python virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+**/__pycache__/
+*.pyc
+
+# CMake build
+build/
+
+# Robot Framework generated reports
+output.xml
+log.html
+report.html
+results/
+
+# Python test/cache
+.pytest_cache/
+
+# OS / editor
+.DS_Store

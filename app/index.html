@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EyeMee - Ophthalmic Measurement System</title>
+
+    <!-- ICON LIBRARY -->
+    <link
+        href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- EYEMEE STYLE -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="sidebar">
+
+        <!-- LOGO -->
+        <div class="brand">
+
+            <img
+                src="assets/EyeMee.png"
+                alt="EyeMee"
+                class="brand-image"
+            >
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+        <nav class="navigation">
+
+            <button
+                class="nav-item active"
+                type="button"
+            >
+                <span class="nav-icon">
+                    <i class="bx bx-home-alt-2"></i>
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+            </button>
+
+
+            <button
+                class="nav-item"
+                type="button"
+            >
+                <span class="nav-icon">
+                    <i class="bx bx-line-chart"></i>
+                </span>
+
+                <span>
+                    Measurements
+                </span>
+            </button>
+
+
+            <button
+                class="nav-item"
+                type="button"
+            >
+                <span class="nav-icon">
+                    <i class="bx bx-user"></i>
+                </span>
+
+                <span>
+                    Patients
+                </span>
+            </button>
+
+
+            <button
+                class="nav-item"
+                type="button"
+            >
+                <span class="nav-icon">
+                    <i class="bx bx-target-lock"></i>
+                </span>
+
+                <span>
+                    Calibration
+                </span>
+            </button>
+
+
+            <button
+                class="nav-item"
+                type="button"
+            >
+                <span class="nav-icon">
+                    <i class="bx bx-history"></i>
+                </span>
+
+                <span>
+                    History
+                </span>
+            </button>
+
+
+            <button
+                class="nav-item"
+                type="button"
+            >
+                <span class="nav-icon">
+                    <i class="bx bx-cog"></i>
+                </span>
+
+                <span>
+                    Device Settings
+                </span>
+            </button>
+
+
+            <button
+                class="nav-item"
+                type="button"
+            >
+                <span class="nav-icon">
+                    <i class="bx bx-shield-quarter"></i>
+                </span>
+
+                <span>
+                    System
+                </span>
+            </button>
+
+        </nav>
+
+
+        <!-- =================================================
+             SENSOR MODULE
+             ================================================= -->
+
+        <div class="sensor-module">
+
+            <div class="sensor-module-header">
+                SENSOR MODULE
+            </div>
+
+
+            <div class="sensor-device">
+
+                <div class="sensor-image-wrapper">
+
+                    <img
+                        src="assets/EyeMee_Device.png"
+                        alt="EyeMee Sensor Module"
+                        class="sensor-image"
+                    >
+
+                </div>
+
+
+                <div class="sensor-details">
+
+                    <strong
+                        id="sensorSidebarStatus"
+                        class="connected"
+                    >
+                        ● CONNECTED
+                    </strong>
+
+                    <p>
+                        SN: EYM-7845123
+                    </p>
+
+                    <p>
+                        FW: v2.4.1
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <button
+                id="disconnectButton"
+                class="disconnect-button"
+                type="button"
+            >
+                <i class="bx bx-unlink"></i>
+
+                Disconnect
+            </button>
+
+        </div>
+
+
+        <!-- FOOTER -->
+        <div class="sidebar-footer">
+
+            <p>
+                © 2026 EyeMee Technologies
+            </p>
+
+            <p>
+                All rights reserved.
+            </p>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             TOP BAR
+             ================================================= -->
+
+        <header class="topbar">
+
+
+            <!-- TITLE -->
+            <div class="topbar-title">
+
+                <h1>
+                    <span>EyeMee</span>
+                    Ophthalmic Measurement System
+                </h1>
+
+                <p>
+                    Advanced
+                    <span>•</span>
+
+                    Reliable
+                    <span>•</span>
+
+                    Patient Focused
+                </p>
+
+            </div>
+
+
+
+            <!-- TOP RIGHT -->
+            <div class="topbar-right">
+
+
+                <!-- STATUS -->
+                <div class="ready-pill">
+
+                    <small>
+                        DEVICE STATUS
+                    </small>
+
+                    <strong id="headerDeviceStatus">
+                        ● READY
+                    </strong>
+
+                </div>
+
+
+                <!-- CLOCK -->
+                <div class="clock">
+
+                    <strong id="currentTime">
+                        10:24 AM
+                    </strong>
+
+                    <span id="currentDate">
+                        Sep 1, 2026
+                    </span>
+
+                </div>
+
+
+                <!-- SETTINGS -->
+                <button
+                    class="settings-button"
+                    type="button"
+                    aria-label="Device settings"
+                >
+                    <i class="bx bx-cog"></i>
+                </button>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             DASHBOARD
+             ================================================= -->
+
+        <div class="dashboard-layout">
+
+
+            <!-- =============================================
+                 MAIN COLUMN
+                 ============================================= -->
+
+            <section class="dashboard-main">
+
+
+                <!-- =========================================
+                     PATIENT + EYE SELECTION
+                     ========================================= -->
+
+                <div class="top-card">
+
+
+                    <!-- PATIENT -->
+                    <section class="patient-panel">
+
+                        <div class="section-title">
+
+                            <i class="bx bx-user"></i>
+
+                            PATIENT INFORMATION
+
+                        </div>
+
+
+                        <label for="patientId">
+                            Patient ID
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+                            <input
+                                id="patientId"
+                                type="text"
+                                value="PAT-00145"
+                                placeholder="Enter patient ID"
+                            >
+
+                            <i class="bx bx-id-card"></i>
+
+                        </div>
+
+
+                        <label for="birthDate">
+
+                            Date of Birth
+
+                            <small>
+                                (optional)
+                            </small>
+
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+                            <input
+                                id="birthDate"
+                                type="text"
+                                placeholder="DD / MM / YYYY"
+                            >
+
+                            <i class="bx bx-calendar"></i>
+
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- =====================================
+                         EYE SELECTION
+                         ===================================== -->
+
+                    <section class="eye-panel">
+
+                        <div class="section-title">
+
+                            <i class="bx bx-show"></i>
+
+                            EYE SELECTION
+
+                        </div>
+
+
+                        <div class="eye-grid">
+
+
+                            <!-- LEFT EYE -->
+                            <button
+                                id="leftEye"
+                                class="eye-card selected"
+                                type="button"
+                                data-eye="LEFT"
+                            >
+
+                                <span class="eye-check selected-check">
+                                    <i class="bx bx-check"></i>
+                                </span>
+
+
+                                <img
+                                    src="assets/oeil_bleu.png"
+                                    alt="Selected left eye"
+                                    class="eye-image"
+                                >
+
+
+                                <strong>
+                                    LEFT EYE
+                                </strong>
+
+                            </button>
+
+
+
+                            <!-- RIGHT EYE -->
+                            <button
+                                id="rightEye"
+                                class="eye-card"
+                                type="button"
+                                data-eye="RIGHT"
+                            >
+
+                                <span class="eye-check">
+                                </span>
+
+
+                                <img
+                                    src="assets/Oeil_gris.png"
+                                    alt="Right eye"
+                                    class="eye-image"
+                                >
+
+
+                                <strong>
+                                    RIGHT EYE
+                                </strong>
+
+                            </button>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+
+
+                <!-- =========================================
+                     DEVICE STATUS
+                     ========================================= -->
+
+                <div class="status-grid">
+
+
+                    <!-- SENSOR STATUS -->
+                    <article class="status-card">
+
+                        <div class="status-card-header">
+
+                            <span class="status-icon">
+                                <i class="bx bx-wifi"></i>
+                            </span>
+
+                            <div class="section-title">
+                                SENSOR STATUS
+                            </div>
+
+                        </div>
+
+
+                        <strong
+                            id="sensorStatus"
+                            class="status-good"
+                        >
+                            CONNECTED
+                        </strong>
+
+
+                        <p>
+                            Signal Quality:
+                            <b>Excellent</b>
+                        </p>
+
+
+                        <div class="progress">
+
+                            <div
+                                id="sensorQualityBar"
+                                class="progress-value"
+                            ></div>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- CALIBRATION STATUS -->
+                    <article class="status-card">
+
+                        <div class="status-card-header">
+
+                            <span class="status-icon">
+                                <i class="bx bx-target-lock"></i>
+                            </span>
+
+                            <div class="section-title">
+                                CALIBRATION STATUS
+                            </div>
+
+                        </div>
+
+
+                        <div class="status-line">
+
+                            <strong
+                                id="calibrationStatus"
+                                class="status-good"
+                            >
+                                CALIBRATED
+                            </strong>
+
+
+                            <span class="status-check">
+                                <i class="bx bx-check"></i>
+                            </span>
+
+                        </div>
+
+
+                        <p id="lastCalibration">
+                            Last calibration:
+                            Today 09:15 AM
+                        </p>
+
+                    </article>
+
+
+
+                    <!-- DEVICE STATUS -->
+                    <article class="status-card">
+
+                        <div class="status-card-header">
+
+                            <span class="status-icon">
+                                <i class="bx bx-desktop"></i>
+                            </span>
+
+                            <div class="section-title">
+                                DEVICE STATUS
+                            </div>
+
+                        </div>
+
+
+                        <div class="status-line">
+
+                            <strong
+                                id="deviceStatus"
+                                class="status-good"
+                            >
+                                READY
+                            </strong>
+
+
+                            <span class="status-check">
+                                <i class="bx bx-check"></i>
+                            </span>
+
+                        </div>
+
+
+                        <p>
+                            System operational
+                        </p>
+
+                    </article>
+
+                </div>
+
+
+
+                <!-- =========================================
+                     ACTION BUTTONS
+                     ========================================= -->
+
+                <div class="action-grid">
+
+
+                    <!-- CALIBRATION -->
+                    <button
+                        id="calibrateButton"
+                        class="primary-button calibration-button"
+                        type="button"
+                    >
+
+                        <span class="button-icon">
+                            <i class="bx bx-target-lock"></i>
+                        </span>
+
+                        <span>
+                            CALIBRATE DEVICE
+                        </span>
+
+                    </button>
+
+
+
+                    <!-- MEASUREMENT -->
+                    <button
+                        id="measureButton"
+                        class="primary-button measurement-button"
+                        type="button"
+                    >
+
+                        <span class="button-icon">
+                            <i class="bx bx-play"></i>
+                        </span>
+
+                        <span>
+                            START MEASUREMENT
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- =========================================
+                     MEASUREMENT RESULT
+                     ========================================= -->
+
+                <section class="measurement-panel">
+
+
+                    <div class="measurement-title-row">
+
+                        <div class="section-title">
+
+                            <i class="bx bx-pulse"></i>
+
+                            MEASUREMENT RESULT
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="measurement-grid">
+
+
+                        <!-- PRESSURE -->
+                        <article
+                            class="measurement-card pressure-card"
+                        >
+
+                            <span class="measurement-label">
+                                PRESSURE
+                            </span>
+
+
+                            <div class="measurement-value">
+
+                                <strong id="pressureValue">
+                                    --
+                                </strong>
+
+                                <small>
+                                    mmHg
+                                </small>
+
+                            </div>
+
+
+                            <i class="bx bx-show pressure-watermark"></i>
+
+                        </article>
+
+
+
+                        <!-- QUALITY -->
+                        <article
+                            class="measurement-card quality-card"
+                        >
+
+                            <span class="measurement-label">
+                                QUALITY
+                            </span>
+
+
+                            <div class="quality-content">
+
+
+                                <div class="measurement-value">
+
+                                    <strong id="qualityValue">
+                                        --
+                                    </strong>
+
+                                    <small>
+                                        %
+                                    </small>
+
+                                </div>
+
+
+                                <div
+                                    id="qualityIndicator"
+                                    class="quality-indicator"
+                                >
+                                </div>
+
+                            </div>
+
+                        </article>
+
+
+
+                        <!-- RESULT -->
+                        <article
+                            class="measurement-card result-card"
+                        >
+
+                            <span class="measurement-label">
+                                RESULT
+                            </span>
+
+
+                            <div class="result-content">
+
+                                <strong id="measurementResult">
+                                    NO RESULT
+                                </strong>
+
+
+                                <div class="result-shield">
+
+                                    <i class="bx bx-shield-quarter"></i>
+
+                                </div>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                </section>
+
+            </section>
+
+
+
+            <!-- =============================================
+                 RIGHT COLUMN
+                 ============================================= -->
+
+            <aside class="dashboard-right">
+
+
+                <!-- =========================================
+                     QUICK INFO
+                     ========================================= -->
+
+                <section class="side-card">
+
+                    <div class="section-title">
+
+                        <i class="bx bx-info-circle"></i>
+
+                        QUICK INFO
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <span>
+                            Device Model
+                        </span>
+
+                        <strong>
+                            EYM-2000
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <span>
+                            Software Version
+                        </span>
+
+                        <strong>
+                            v2.4.1
+                        </strong>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <span>
+                            Battery Level
+                        </span>
+
+                        <strong id="batteryValue">
+                            85%
+                        </strong>
+
+                    </div>
+
+
+                    <div class="battery-bar">
+
+                        <div id="batteryProgress">
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <span class="info-with-icon">
+
+                            <i class="bx bx-temperature"></i>
+
+                            Temperature
+
+                        </span>
+
+                        <strong id="temperatureValue">
+                            36.7 °C
+                        </strong>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =========================================
+                     SYSTEM MESSAGES
+                     ========================================= -->
+
+                <section class="side-card">
+
+                    <div class="section-title">
+
+                        <i class="bx bx-message-rounded-dots"></i>
+
+                        SYSTEM MESSAGES
+
+                    </div>
+
+
+                    <div
+                        id="systemMessage"
+                        class="system-message"
+                    >
+
+                        Device ready.
+
+                        <br>
+
+                        Calibration required to start a measurement.
+
+                    </div>
+
+
+                    <div class="message-footer">
+
+                        <small id="messageTime">
+                            10:24:01 AM
+                        </small>
+
+
+                        <span class="info-icon">
+                            i
+                        </span>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =========================================
+                     RECENT ACTIVITY
+                     ========================================= -->
+
+                <section class="side-card activity-card">
+
+                    <div class="section-title">
+
+                        <i class="bx bx-time-five"></i>
+
+                        RECENT ACTIVITY
+
+                    </div>
+
+
+                    <div
+                        id="activityList"
+                        class="activity-list"
+                    >
+
+
+                        <div class="activity-row">
+
+                            <span>
+                                09:15
+                            </span>
+
+                            <p>
+                                Calibration completed
+                            </p>
+
+                            <strong>
+                                <i class="bx bx-check-circle"></i>
+                            </strong>
+
+                        </div>
+
+
+                        <div class="activity-row">
+
+                            <span>
+                                09:10
+                            </span>
+
+                            <p>
+                                Device powered on
+                            </p>
+
+                            <strong>
+                                <i class="bx bx-check-circle"></i>
+                            </strong>
+
+                        </div>
+
+
+                        <div class="activity-row">
+
+                            <span>
+                                09:08
+                            </span>
+
+                            <p>
+                                Self test passed
+                            </p>
+
+                            <strong>
+                                <i class="bx bx-check-circle"></i>
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="history-link"
+                        type="button"
+                    >
+
+                        View full history
+
+                        <i class="bx bx-right-arrow-alt"></i>
+
+                    </button>
+
+                </section>
+
+            </aside>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+     ========================================================= -->
+
+<script src="device.js"></script>
+
+</body>
+
+</html>
