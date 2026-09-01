@@ -1,1009 +1,815 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>EyeMee - Ophthalmic Measurement System</title>
 
-    <!-- ICON LIBRARY -->
-    <link
-        href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-        rel="stylesheet"
-    >
-
-    <!-- EYEMEE STYLE -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
 <div class="app-shell">
 
     <!-- =====================================================
          SIDEBAR
          ===================================================== -->
-
     <aside class="sidebar">
-
-        <!-- LOGO -->
         <div class="brand">
-
-            <img
-                src="assets/EyeMee.png"
-                alt="EyeMee"
-                class="brand-image"
-            >
-
+            <img src="assets/EyeMee.png" alt="EyeMee" class="brand-image">
         </div>
 
-
-        <!-- NAVIGATION -->
-        <nav class="navigation">
-
-            <button
-                class="nav-item active"
-                type="button"
-            >
-                <span class="nav-icon">
-                    <i class="bx bx-home-alt-2"></i>
-                </span>
-
-                <span>
-                    Dashboard
-                </span>
+        <nav class="navigation" id="mainNavigation">
+            <button class="nav-item active" type="button" data-view="dashboard">
+                <span class="nav-icon"><i class="bx bx-home-alt-2"></i></span>
+                <span>Dashboard</span>
             </button>
 
-
-            <button
-                class="nav-item"
-                type="button"
-            >
-                <span class="nav-icon">
-                    <i class="bx bx-line-chart"></i>
-                </span>
-
-                <span>
-                    Measurements
-                </span>
+            <button class="nav-item" type="button" data-view="measurements">
+                <span class="nav-icon"><i class="bx bx-line-chart"></i></span>
+                <span>Measurements</span>
             </button>
 
-
-            <button
-                class="nav-item"
-                type="button"
-            >
-                <span class="nav-icon">
-                    <i class="bx bx-user"></i>
-                </span>
-
-                <span>
-                    Patients
-                </span>
+            <button class="nav-item" type="button" data-view="patients">
+                <span class="nav-icon"><i class="bx bx-user"></i></span>
+                <span>Patients</span>
             </button>
 
-
-            <button
-                class="nav-item"
-                type="button"
-            >
-                <span class="nav-icon">
-                    <i class="bx bx-target-lock"></i>
-                </span>
-
-                <span>
-                    Calibration
-                </span>
+            <button class="nav-item" type="button" data-view="calibration">
+                <span class="nav-icon"><i class="bx bx-target-lock"></i></span>
+                <span>Calibration</span>
             </button>
 
-
-            <button
-                class="nav-item"
-                type="button"
-            >
-                <span class="nav-icon">
-                    <i class="bx bx-history"></i>
-                </span>
-
-                <span>
-                    History
-                </span>
+            <button class="nav-item" type="button" data-view="history">
+                <span class="nav-icon"><i class="bx bx-history"></i></span>
+                <span>History</span>
             </button>
 
-
-            <button
-                class="nav-item"
-                type="button"
-            >
-                <span class="nav-icon">
-                    <i class="bx bx-cog"></i>
-                </span>
-
-                <span>
-                    Device Settings
-                </span>
+            <button class="nav-item" type="button" data-view="device-settings">
+                <span class="nav-icon"><i class="bx bx-cog"></i></span>
+                <span>Device Settings</span>
             </button>
 
-
-            <button
-                class="nav-item"
-                type="button"
-            >
-                <span class="nav-icon">
-                    <i class="bx bx-shield-quarter"></i>
-                </span>
-
-                <span>
-                    System
-                </span>
+            <button class="nav-item" type="button" data-view="system">
+                <span class="nav-icon"><i class="bx bx-shield-quarter"></i></span>
+                <span>System</span>
             </button>
-
         </nav>
 
-
-        <!-- =================================================
-             SENSOR MODULE
-             ================================================= -->
-
         <div class="sensor-module">
-
-            <div class="sensor-module-header">
-                SENSOR MODULE
-            </div>
-
+            <div class="sensor-module-header">SENSOR MODULE</div>
 
             <div class="sensor-device">
-
                 <div class="sensor-image-wrapper">
-
-                    <img
-                        src="assets/EyeMee_Device.png"
-                        alt="EyeMee Sensor Module"
-                        class="sensor-image"
-                    >
-
+                    <img src="assets/EyeMee_Device.png" alt="EyeMee Sensor Module" class="sensor-image">
                 </div>
-
 
                 <div class="sensor-details">
-
-                    <strong
-                        id="sensorSidebarStatus"
-                        class="connected"
-                    >
-                        ● CONNECTED
-                    </strong>
-
-                    <p>
-                        SN: EYM-7845123
-                    </p>
-
-                    <p>
-                        FW: v2.4.1
-                    </p>
-
+                    <strong id="sensorSidebarStatus" class="connected">● CONNECTED</strong>
+                    <p>SN: EYM-7845123</p>
+                    <p>FW: v2.4.1</p>
                 </div>
-
             </div>
 
-
-            <button
-                id="disconnectButton"
-                class="disconnect-button"
-                type="button"
-            >
+            <button id="disconnectButton" class="disconnect-button" type="button">
                 <i class="bx bx-unlink"></i>
-
                 Disconnect
             </button>
-
         </div>
 
-
-        <!-- FOOTER -->
         <div class="sidebar-footer">
-
-            <p>
-                © 2026 EyeMee Technologies
-            </p>
-
-            <p>
-                All rights reserved.
-            </p>
-
+            <p>© 2026 EyeMee Technologies</p>
+            <p>Validation demo system</p>
         </div>
-
     </aside>
-
 
 
     <!-- =====================================================
          MAIN CONTENT
          ===================================================== -->
-
     <main class="main-content">
 
-
-        <!-- =================================================
-             TOP BAR
-             ================================================= -->
-
         <header class="topbar">
-
-
-            <!-- TITLE -->
             <div class="topbar-title">
-
-                <h1>
-                    <span>EyeMee</span>
-                    Ophthalmic Measurement System
-                </h1>
-
-                <p>
-                    Advanced
-                    <span>•</span>
-
-                    Reliable
-                    <span>•</span>
-
-                    Patient Focused
-                </p>
-
+                <h1><span>EyeMee</span> Ophthalmic Measurement System</h1>
+                <p>Advanced <span>•</span> Reliable <span>•</span> Patient Focused</p>
             </div>
 
-
-
-            <!-- TOP RIGHT -->
             <div class="topbar-right">
-
-
-                <!-- STATUS -->
-                <div class="ready-pill">
-
-                    <small>
-                        DEVICE STATUS
-                    </small>
-
-                    <strong id="headerDeviceStatus">
-                        ● READY
-                    </strong>
-
+                <div class="ready-pill" id="headerStatusPill">
+                    <small>DEVICE STATUS</small>
+                    <strong id="headerDeviceStatus">● READY</strong>
                 </div>
 
-
-                <!-- CLOCK -->
                 <div class="clock">
-
-                    <strong id="currentTime">
-                        10:24 AM
-                    </strong>
-
-                    <span id="currentDate">
-                        Sep 1, 2026
-                    </span>
-
+                    <strong id="currentTime">--:--</strong>
+                    <span id="currentDate">--</span>
                 </div>
 
-
-                <!-- SETTINGS -->
-                <button
-                    class="settings-button"
-                    type="button"
-                    aria-label="Device settings"
-                >
+                <button id="topSettingsButton" class="settings-button" type="button" aria-label="Device settings">
                     <i class="bx bx-cog"></i>
                 </button>
-
             </div>
-
         </header>
 
 
+        <!-- =================================================
+             DASHBOARD VIEW
+             ================================================= -->
+        <section id="view-dashboard" class="view active-view">
+            <div class="dashboard-layout">
+
+                <section class="dashboard-main">
+                    <div class="top-card">
+                        <section class="patient-panel">
+                            <div class="section-title">
+                                <i class="bx bx-user"></i>
+                                PATIENT INFORMATION
+                            </div>
+
+                            <label for="patientId">Patient ID</label>
+                            <div class="input-wrapper">
+                                <input id="patientId" type="text" placeholder="PAT-00145">
+                                <i class="bx bx-id-card"></i>
+                            </div>
+
+                            <label for="birthDate">
+                                Date of Birth <small>(optional)</small>
+                            </label>
+                            <div class="input-wrapper">
+                                <input id="birthDate" type="date">
+                                <i class="bx bx-calendar"></i>
+                            </div>
+
+                            <button id="applyPatientButton" class="secondary-action full-width" type="button">
+                                <i class="bx bx-check"></i>
+                                Apply patient
+                            </button>
+
+                            <div id="patientFormMessage" class="inline-message"></div>
+                        </section>
+
+                        <section class="eye-panel">
+                            <div class="section-title">
+                                <i class="bx bx-show"></i>
+                                EYE SELECTION
+                            </div>
+
+                            <div class="eye-grid">
+                                <button id="leftEye" class="eye-card selected" type="button" data-eye="LEFT">
+                                    <span class="eye-check"><i class="bx bx-check"></i></span>
+                                    <img src="assets/oeil_bleu.png" alt="Left eye" class="eye-image">
+                                    <strong>LEFT EYE</strong>
+                                </button>
+
+                                <button id="rightEye" class="eye-card" type="button" data-eye="RIGHT">
+                                    <span class="eye-check"></span>
+                                    <img src="assets/Oeil_gris.png" alt="Right eye" class="eye-image">
+                                    <strong>RIGHT EYE</strong>
+                                </button>
+                            </div>
+                        </section>
+                    </div>
+
+                    <div class="status-grid">
+                        <article class="status-card">
+                            <div class="status-card-header">
+                                <span class="status-icon"><i class="bx bx-wifi"></i></span>
+                                <div class="section-title">SENSOR STATUS</div>
+                            </div>
+
+                            <strong id="sensorStatus" class="status-good">CONNECTED</strong>
+                            <p>Signal Quality: <b>Excellent</b></p>
+
+                            <div class="progress">
+                                <div id="sensorQualityBar" class="progress-value"></div>
+                            </div>
+                        </article>
+
+                        <article class="status-card">
+                            <div class="status-card-header">
+                                <span class="status-icon"><i class="bx bx-target-lock"></i></span>
+                                <div class="section-title">CALIBRATION STATUS</div>
+                            </div>
+
+                            <div class="status-line">
+                                <strong id="calibrationStatus" class="status-good">CALIBRATED</strong>
+                                <span class="status-check"><i class="bx bx-check"></i></span>
+                            </div>
+
+                            <p id="lastCalibration">Last calibration: --</p>
+                        </article>
+
+                        <article class="status-card">
+                            <div class="status-card-header">
+                                <span class="status-icon"><i class="bx bx-desktop"></i></span>
+                                <div class="section-title">DEVICE STATUS</div>
+                            </div>
+
+                            <div class="status-line">
+                                <strong id="deviceStatus" class="status-good">READY</strong>
+                                <span class="status-check"><i class="bx bx-check"></i></span>
+                            </div>
+
+                            <p>System operational</p>
+                        </article>
+                    </div>
+
+                    <div class="action-grid">
+                        <button id="calibrateButton" class="primary-button calibration-button" type="button">
+                            <span class="button-icon"><i class="bx bx-target-lock"></i></span>
+                            <span>CALIBRATE DEVICE</span>
+                        </button>
+
+                        <button id="measureButton" class="primary-button measurement-button" type="button">
+                            <span class="button-icon"><i class="bx bx-play"></i></span>
+                            <span>START MEASUREMENT</span>
+                        </button>
+                    </div>
+
+                    <section class="measurement-panel">
+                        <div class="measurement-title-row">
+                            <div class="section-title">
+                                <i class="bx bx-pulse"></i>
+                                LEFT EYE RESULT
+                            </div>
+                        </div>
+
+                        <div class="measurement-grid">
+                            <article class="measurement-card pressure-card">
+                                <span class="measurement-label">PRESSURE</span>
+                                <div class="measurement-value">
+                                    <strong id="pressureValue">--</strong>
+                                    <small>mmHg</small>
+                                </div>
+                                <i class="bx bx-show pressure-watermark"></i>
+                            </article>
+
+                            <article class="measurement-card quality-card">
+                                <span class="measurement-label">QUALITY</span>
+                                <div class="quality-content">
+                                    <div class="measurement-value">
+                                        <strong id="qualityValue">--</strong>
+                                        <small>%</small>
+                                    </div>
+                                    <div id="qualityIndicator" class="quality-indicator"></div>
+                                </div>
+                            </article>
+
+                            <article class="measurement-card result-card">
+                                <span class="measurement-label">RESULT</span>
+                                <div class="result-content">
+                                    <strong id="measurementResult">NO RESULT</strong>
+                                    <div class="result-shield"><i class="bx bx-shield-quarter"></i></div>
+                                </div>
+                            </article>
+                        </div>
+                    </section>
+                </section>
+
+
+                <aside class="dashboard-right">
+                    <section class="side-card">
+                        <div class="section-title">
+                            <i class="bx bx-info-circle"></i>
+                            QUICK INFO
+                        </div>
+
+                        <div class="info-row"><span>Device Model</span><strong id="quickDeviceModel">EYM-2000</strong></div>
+                        <div class="info-row"><span>Software Version</span><strong id="quickSoftwareVersion">v2.4.1</strong></div>
+                        <div class="info-row"><span>Battery Level</span><strong id="batteryValue">85%</strong></div>
+                        <div class="battery-bar"><div id="batteryProgress"></div></div>
+                        <div class="info-row"><span class="info-with-icon"><i class="bx bx-temperature"></i>Temperature</span><strong id="temperatureValue">36.7 °C</strong></div>
+                    </section>
+
+                    <section class="side-card">
+                        <div class="section-title">
+                            <i class="bx bx-message-rounded-dots"></i>
+                            SYSTEM MESSAGES
+                        </div>
+
+                        <div id="systemMessage" class="system-message">Loading EyeMee state...</div>
+
+                        <div class="message-footer">
+                            <small id="messageTime">--:--</small>
+                            <span class="info-icon">i</span>
+                        </div>
+                    </section>
+
+                    <section class="side-card activity-card">
+                        <div class="section-title">
+                            <i class="bx bx-time-five"></i>
+                            RECENT ACTIVITY
+                        </div>
+
+                        <div id="dashboardActivityList" class="activity-list"></div>
+
+                        <button id="dashboardHistoryButton" class="history-link" type="button">
+                            View full history <i class="bx bx-right-arrow-alt"></i>
+                        </button>
+                    </section>
+                </aside>
+            </div>
+        </section>
+
 
         <!-- =================================================
-             DASHBOARD
+             MEASUREMENTS VIEW
              ================================================= -->
+        <section id="view-measurements" class="view">
+            <div class="page-shell">
+                <div class="page-heading">
+                    <div>
+                        <span class="eyebrow">CLINICAL DATA</span>
+                        <h2>Measurements</h2>
+                        <p>Review measurements recorded by the EyeMee validation simulator.</p>
+                    </div>
 
-        <div class="dashboard-layout">
-
-
-            <!-- =============================================
-                 MAIN COLUMN
-                 ============================================= -->
-
-            <section class="dashboard-main">
-
-
-                <!-- =========================================
-                     PATIENT + EYE SELECTION
-                     ========================================= -->
-
-                <div class="top-card">
-
-
-                    <!-- PATIENT -->
-                    <section class="patient-panel">
-
-                        <div class="section-title">
-
-                            <i class="bx bx-user"></i>
-
-                            PATIENT INFORMATION
-
-                        </div>
-
-
-                        <label for="patientId">
-                            Patient ID
-                        </label>
-
-
-                        <div class="input-wrapper">
-
-                            <input
-                                id="patientId"
-                                type="text"
-                                value="PAT-00145"
-                                placeholder="Enter patient ID"
-                            >
-
-                            <i class="bx bx-id-card"></i>
-
-                        </div>
-
-
-                        <label for="birthDate">
-
-                            Date of Birth
-
-                            <small>
-                                (optional)
-                            </small>
-
-                        </label>
-
-
-                        <div class="input-wrapper">
-
-                            <input
-                                id="birthDate"
-                                type="text"
-                                placeholder="DD / MM / YYYY"
-                            >
-
-                            <i class="bx bx-calendar"></i>
-
-                        </div>
-
-                    </section>
-
-
-
-                    <!-- =====================================
-                         EYE SELECTION
-                         ===================================== -->
-
-                    <section class="eye-panel">
-
-                        <div class="section-title">
-
-                            <i class="bx bx-show"></i>
-
-                            EYE SELECTION
-
-                        </div>
-
-
-                        <div class="eye-grid">
-
-
-                            <!-- LEFT EYE -->
-                            <button
-                                id="leftEye"
-                                class="eye-card selected"
-                                type="button"
-                                data-eye="LEFT"
-                            >
-
-                                <span class="eye-check selected-check">
-                                    <i class="bx bx-check"></i>
-                                </span>
-
-
-                                <img
-                                    src="assets/oeil_bleu.png"
-                                    alt="Selected left eye"
-                                    class="eye-image"
-                                >
-
-
-                                <strong>
-                                    LEFT EYE
-                                </strong>
-
-                            </button>
-
-
-
-                            <!-- RIGHT EYE -->
-                            <button
-                                id="rightEye"
-                                class="eye-card"
-                                type="button"
-                                data-eye="RIGHT"
-                            >
-
-                                <span class="eye-check">
-                                </span>
-
-
-                                <img
-                                    src="assets/Oeil_gris.png"
-                                    alt="Right eye"
-                                    class="eye-image"
-                                >
-
-
-                                <strong>
-                                    RIGHT EYE
-                                </strong>
-
-                            </button>
-
-                        </div>
-
-                    </section>
-
+                    <button class="page-action" type="button" data-view-jump="dashboard">
+                        <i class="bx bx-plus-medical"></i>
+                        New measurement
+                    </button>
                 </div>
 
-
-
-                <!-- =========================================
-                     DEVICE STATUS
-                     ========================================= -->
-
-                <div class="status-grid">
-
-
-                    <!-- SENSOR STATUS -->
-                    <article class="status-card">
-
-                        <div class="status-card-header">
-
-                            <span class="status-icon">
-                                <i class="bx bx-wifi"></i>
-                            </span>
-
-                            <div class="section-title">
-                                SENSOR STATUS
-                            </div>
-
-                        </div>
-
-
-                        <strong
-                            id="sensorStatus"
-                            class="status-good"
-                        >
-                            CONNECTED
-                        </strong>
-
-
-                        <p>
-                            Signal Quality:
-                            <b>Excellent</b>
-                        </p>
-
-
-                        <div class="progress">
-
-                            <div
-                                id="sensorQualityBar"
-                                class="progress-value"
-                            ></div>
-
-                        </div>
-
+                <div class="summary-grid measurement-summary-grid">
+                    <article class="summary-card">
+                        <span>Total measurements</span>
+                        <strong id="measurementCount">0</strong>
                     </article>
-
-
-
-                    <!-- CALIBRATION STATUS -->
-                    <article class="status-card">
-
-                        <div class="status-card-header">
-
-                            <span class="status-icon">
-                                <i class="bx bx-target-lock"></i>
-                            </span>
-
-                            <div class="section-title">
-                                CALIBRATION STATUS
-                            </div>
-
-                        </div>
-
-
-                        <div class="status-line">
-
-                            <strong
-                                id="calibrationStatus"
-                                class="status-good"
-                            >
-                                CALIBRATED
-                            </strong>
-
-
-                            <span class="status-check">
-                                <i class="bx bx-check"></i>
-                            </span>
-
-                        </div>
-
-
-                        <p id="lastCalibration">
-                            Last calibration:
-                            Today 09:15 AM
-                        </p>
-
+                    <article class="summary-card">
+                        <span>Valid result rate</span>
+                        <strong id="measurementValidRate">--</strong>
                     </article>
-
-
-
-                    <!-- DEVICE STATUS -->
-                    <article class="status-card">
-
-                        <div class="status-card-header">
-
-                            <span class="status-icon">
-                                <i class="bx bx-desktop"></i>
-                            </span>
-
-                            <div class="section-title">
-                                DEVICE STATUS
-                            </div>
-
-                        </div>
-
-
-                        <div class="status-line">
-
-                            <strong
-                                id="deviceStatus"
-                                class="status-good"
-                            >
-                                READY
-                            </strong>
-
-
-                            <span class="status-check">
-                                <i class="bx bx-check"></i>
-                            </span>
-
-                        </div>
-
-
-                        <p>
-                            System operational
-                        </p>
-
+                    <article class="summary-card">
+                        <span>Patients tested</span>
+                        <strong id="measurementPatientCount">0</strong>
                     </article>
-
+                    <article class="summary-card latest-measurement-summary">
+                        <span>Latest measurement</span>
+                        <strong id="measurementLatestEye">--</strong>
+                        <small id="measurementLatestDetails">No measurement recorded</small>
+                    </article>
                 </div>
 
+                <section class="content-card">
+                    <div class="toolbar">
+                        <div class="toolbar-group">
+                            <label>
+                                Patient
+                                <select id="measurementPatientFilter">
+                                    <option value="ALL">All patients</option>
+                                </select>
+                            </label>
+
+                            <label>
+                                Eye
+                                <select id="measurementEyeFilter">
+                                    <option value="ALL">All eyes</option>
+                                    <option value="LEFT">Left</option>
+                                    <option value="RIGHT">Right</option>
+                                </select>
+                            </label>
+
+                            <label>
+                                Result
+                                <select id="measurementResultFilter">
+                                    <option value="ALL">All results</option>
+                                    <option value="VALID">Valid</option>
+                                    <option value="INVALID">Invalid</option>
+                                </select>
+                            </label>
+                        </div>
+
+                        <button id="refreshMeasurementsButton" class="icon-action" type="button" title="Refresh measurements">
+                            <i class="bx bx-refresh"></i>
+                        </button>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Date / Time</th>
+                                    <th>Patient</th>
+                                    <th>Eye</th>
+                                    <th>Pressure</th>
+                                    <th>Quality</th>
+                                    <th>Result</th>
+                                </tr>
+                            </thead>
+                            <tbody id="measurementTableBody"></tbody>
+                        </table>
+
+                        <div id="measurementEmptyState" class="empty-state hidden">
+                            <i class="bx bx-line-chart"></i>
+                            <strong>No measurement found</strong>
+                            <p>Run a measurement from the Dashboard to populate this page.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
 
 
-                <!-- =========================================
-                     ACTION BUTTONS
-                     ========================================= -->
+        <!-- =================================================
+             PATIENTS VIEW
+             ================================================= -->
+        <section id="view-patients" class="view">
+            <div class="page-shell">
+                <div class="page-heading">
+                    <div>
+                        <span class="eyebrow">PATIENT WORKFLOW</span>
+                        <h2>Patients</h2>
+                        <p>Create, update and select the patient used by the measurement workflow.</p>
+                    </div>
+                </div>
 
-                <div class="action-grid">
+                <div class="two-column-page">
+                    <section class="content-card form-card">
+                        <div class="card-heading">
+                            <div>
+                                <span class="eyebrow">PATIENT RECORD</span>
+                                <h3>Create or update patient</h3>
+                            </div>
+                            <i class="bx bx-user-plus card-heading-icon"></i>
+                        </div>
+
+                        <div class="form-grid">
+                            <label>
+                                Patient ID
+                                <input id="patientPageId" type="text" placeholder="PAT-00201">
+                            </label>
+
+                            <label>
+                                Name <small>(optional)</small>
+                                <input id="patientPageName" type="text" placeholder="Demo patient">
+                            </label>
+
+                            <label class="form-span-2">
+                                Date of Birth
+                                <input id="patientPageDob" type="date">
+                            </label>
+                        </div>
+
+                        <button id="savePatientButton" class="page-action form-submit" type="button">
+                            <i class="bx bx-save"></i>
+                            Save and select patient
+                        </button>
+
+                        <div id="patientPageMessage" class="inline-message"></div>
+                    </section>
+
+                    <section class="content-card current-patient-card">
+                        <div class="card-heading">
+                            <div>
+                                <span class="eyebrow">ACTIVE PATIENT</span>
+                                <h3>Current measurement context</h3>
+                            </div>
+                            <span class="live-dot"></span>
+                        </div>
+
+                        <div class="patient-avatar"><i class="bx bx-user"></i></div>
+
+                        <strong id="currentPatientName">--</strong>
+                        <span id="currentPatientId">No patient selected</span>
+
+                        <div class="patient-meta-grid">
+                            <div><span>Date of Birth</span><strong id="currentPatientDob">--</strong></div>
+                            <div><span>Measurements</span><strong id="currentPatientMeasurementCount">0</strong></div>
+                        </div>
+                    </section>
+                </div>
+
+                <section class="content-card patient-list-card">
+                    <div class="card-heading">
+                        <div>
+                            <span class="eyebrow">DATABASE</span>
+                            <h3>Available patients</h3>
+                        </div>
+                        <span id="patientCountBadge" class="count-badge">0 patients</span>
+                    </div>
+
+                    <div id="patientList" class="patient-list"></div>
+                </section>
+            </div>
+        </section>
 
 
-                    <!-- CALIBRATION -->
-                    <button
-                        id="calibrateButton"
-                        class="primary-button calibration-button"
-                        type="button"
-                    >
+        <!-- =================================================
+             CALIBRATION VIEW
+             ================================================= -->
+        <section id="view-calibration" class="view">
+            <div class="page-shell">
+                <div class="page-heading">
+                    <div>
+                        <span class="eyebrow">DEVICE PREPARATION</span>
+                        <h2>Calibration</h2>
+                        <p>Prepare the EyeMee sensor before a measurement campaign.</p>
+                    </div>
+                </div>
 
-                        <span class="button-icon">
+                <div class="calibration-layout">
+                    <section class="content-card calibration-hero">
+                        <div id="calibrationHeroIcon" class="calibration-orb">
                             <i class="bx bx-target-lock"></i>
-                        </span>
+                        </div>
 
-                        <span>
-                            CALIBRATE DEVICE
-                        </span>
+                        <span class="eyebrow">CALIBRATION STATUS</span>
+                        <h3 id="calibrationPageStatus">CALIBRATED</h3>
+                        <p id="calibrationPageDescription">Device calibration is valid.</p>
 
-                    </button>
+                        <button id="calibrationPageButton" class="page-action large-action" type="button">
+                            <i class="bx bx-target-lock"></i>
+                            Start calibration
+                        </button>
+                    </section>
 
+                    <section class="content-card">
+                        <div class="card-heading">
+                            <div>
+                                <span class="eyebrow">CHECKLIST</span>
+                                <h3>Preconditions</h3>
+                            </div>
+                        </div>
 
+                        <div class="check-list">
+                            <div class="check-item">
+                                <span id="calibrationSensorIcon" class="check-state"><i class="bx bx-check"></i></span>
+                                <div><strong>Sensor connection</strong><p id="calibrationSensorStatus">Connected</p></div>
+                            </div>
 
-                    <!-- MEASUREMENT -->
-                    <button
-                        id="measureButton"
-                        class="primary-button measurement-button"
-                        type="button"
-                    >
+                            <div class="check-item">
+                                <span class="check-state"><i class="bx bx-check"></i></span>
+                                <div><strong>Device communication</strong><p>Backend API available</p></div>
+                            </div>
 
-                        <span class="button-icon">
-                            <i class="bx bx-play"></i>
-                        </span>
-
-                        <span>
-                            START MEASUREMENT
-                        </span>
-
-                    </button>
-
+                            <div class="check-item">
+                                <span class="check-state"><i class="bx bx-check"></i></span>
+                                <div><strong>Last calibration</strong><p id="calibrationLastTime">--</p></div>
+                            </div>
+                        </div>
+                    </section>
                 </div>
 
-
-
-                <!-- =========================================
-                     MEASUREMENT RESULT
-                     ========================================= -->
-
-                <section class="measurement-panel">
-
-
-                    <div class="measurement-title-row">
-
-                        <div class="section-title">
-
-                            <i class="bx bx-pulse"></i>
-
-                            MEASUREMENT RESULT
-
+                <section class="content-card process-card">
+                    <div class="card-heading">
+                        <div>
+                            <span class="eyebrow">PROCESS</span>
+                            <h3>Calibration sequence</h3>
                         </div>
-
                     </div>
 
+                    <div class="process-steps">
+                        <div class="process-step"><span>1</span><strong>Verify sensor</strong><p>Confirm physical and software connection.</p></div>
+                        <div class="process-step"><span>2</span><strong>Run calibration</strong><p>EyeMee enters CALIBRATING state for two seconds.</p></div>
+                        <div class="process-step"><span>3</span><strong>Validate readiness</strong><p>Successful calibration returns the device to READY.</p></div>
+                    </div>
+                </section>
+            </div>
+        </section>
 
 
-                    <div class="measurement-grid">
+        <!-- =================================================
+             HISTORY VIEW
+             ================================================= -->
+        <section id="view-history" class="view">
+            <div class="page-shell">
+                <div class="page-heading">
+                    <div>
+                        <span class="eyebrow">TRACEABILITY</span>
+                        <h2>History</h2>
+                        <p>Chronological trace of measurements, calibration, patient and device events.</p>
+                    </div>
+                </div>
+
+                <section class="content-card">
+                    <div class="toolbar">
+                        <div class="toolbar-group">
+                            <label>
+                                Category
+                                <select id="historyCategoryFilter">
+                                    <option value="ALL">All categories</option>
+                                    <option value="MEASUREMENT">Measurement</option>
+                                    <option value="CALIBRATION">Calibration</option>
+                                    <option value="SENSOR">Sensor</option>
+                                    <option value="PATIENT">Patient</option>
+                                    <option value="SETTINGS">Settings</option>
+                                    <option value="SYSTEM">System</option>
+                                </select>
+                            </label>
+                        </div>
+
+                        <button id="refreshHistoryButton" class="icon-action" type="button" title="Refresh history">
+                            <i class="bx bx-refresh"></i>
+                        </button>
+                    </div>
+
+                    <div id="historyList" class="history-timeline"></div>
+
+                    <div id="historyEmptyState" class="empty-state hidden">
+                        <i class="bx bx-history"></i>
+                        <strong>No matching history event</strong>
+                    </div>
+                </section>
+            </div>
+        </section>
 
 
-                        <!-- PRESSURE -->
-                        <article
-                            class="measurement-card pressure-card"
-                        >
+        <!-- =================================================
+             DEVICE SETTINGS VIEW
+             ================================================= -->
+        <section id="view-device-settings" class="view">
+            <div class="page-shell">
+                <div class="page-heading">
+                    <div>
+                        <span class="eyebrow">SIMULATION CONFIGURATION</span>
+                        <h2>Device Settings</h2>
+                        <p>Adjust EyeMee test values and acceptance thresholds without changing the application code.</p>
+                    </div>
+                </div>
 
-                            <span class="measurement-label">
-                                PRESSURE
-                            </span>
-
-
-                            <div class="measurement-value">
-
-                                <strong id="pressureValue">
-                                    --
-                                </strong>
-
-                                <small>
-                                    mmHg
-                                </small>
-
+                <section class="content-card settings-card">
+                    <div class="settings-section">
+                        <div class="card-heading compact-heading">
+                            <div>
+                                <span class="eyebrow">MEASUREMENT RULES</span>
+                                <h3>Acceptance criteria</h3>
                             </div>
+                        </div>
 
+                        <div class="form-grid settings-grid">
+                            <label>
+                                Duration (seconds)
+                                <input id="settingDuration" type="number" min="0.2" max="15" step="0.1">
+                            </label>
+                            <label>
+                                Minimum quality (%)
+                                <input id="settingMinQuality" type="number" min="0" max="100" step="1">
+                            </label>
+                            <label>
+                                Min valid pressure
+                                <input id="settingMinPressure" type="number" min="0" max="100" step="0.1">
+                            </label>
+                            <label>
+                                Max valid pressure
+                                <input id="settingMaxPressure" type="number" min="0" max="100" step="0.1">
+                            </label>
+                        </div>
+                    </div>
 
-                            <i class="bx bx-show pressure-watermark"></i>
+                    <div class="settings-divider"></div>
 
-                        </article>
-
-
-
-                        <!-- QUALITY -->
-                        <article
-                            class="measurement-card quality-card"
-                        >
-
-                            <span class="measurement-label">
-                                QUALITY
-                            </span>
-
-
-                            <div class="quality-content">
-
-
-                                <div class="measurement-value">
-
-                                    <strong id="qualityValue">
-                                        --
-                                    </strong>
-
-                                    <small>
-                                        %
-                                    </small>
-
-                                </div>
-
-
-                                <div
-                                    id="qualityIndicator"
-                                    class="quality-indicator"
-                                >
-                                </div>
-
+                    <div class="settings-section">
+                        <div class="card-heading compact-heading">
+                            <div>
+                                <span class="eyebrow">SIMULATED SENSOR VALUES</span>
+                                <h3>Measurement profiles</h3>
                             </div>
+                        </div>
 
-                        </article>
+                        <div class="profile-grid">
+                            <article class="profile-card">
+                                <div class="profile-heading"><i class="bx bx-show"></i><strong>LEFT EYE</strong></div>
+                                <label>Pressure <input id="settingLeftPressure" type="number" min="0" max="100" step="0.1"></label>
+                                <label>Quality (%) <input id="settingLeftQuality" type="number" min="0" max="100" step="1"></label>
+                            </article>
 
+                            <article class="profile-card">
+                                <div class="profile-heading"><i class="bx bx-show"></i><strong>RIGHT EYE</strong></div>
+                                <label>Pressure <input id="settingRightPressure" type="number" min="0" max="100" step="0.1"></label>
+                                <label>Quality (%) <input id="settingRightQuality" type="number" min="0" max="100" step="1"></label>
+                            </article>
+                        </div>
+                    </div>
 
+                    <div class="settings-divider"></div>
 
-                        <!-- RESULT -->
-                        <article
-                            class="measurement-card result-card"
-                        >
-
-                            <span class="measurement-label">
-                                RESULT
-                            </span>
-
-
-                            <div class="result-content">
-
-                                <strong id="measurementResult">
-                                    NO RESULT
-                                </strong>
-
-
-                                <div class="result-shield">
-
-                                    <i class="bx bx-shield-quarter"></i>
-
-                                </div>
-
+                    <div class="settings-section">
+                        <div class="card-heading compact-heading">
+                            <div>
+                                <span class="eyebrow">DEVICE BEHAVIOUR</span>
+                                <h3>General options</h3>
                             </div>
-
-                        </article>
-
-                    </div>
-
-                </section>
-
-            </section>
-
-
-
-            <!-- =============================================
-                 RIGHT COLUMN
-                 ============================================= -->
-
-            <aside class="dashboard-right">
-
-
-                <!-- =========================================
-                     QUICK INFO
-                     ========================================= -->
-
-                <section class="side-card">
-
-                    <div class="section-title">
-
-                        <i class="bx bx-info-circle"></i>
-
-                        QUICK INFO
-
-                    </div>
-
-
-                    <div class="info-row">
-
-                        <span>
-                            Device Model
-                        </span>
-
-                        <strong>
-                            EYM-2000
-                        </strong>
-
-                    </div>
-
-
-                    <div class="info-row">
-
-                        <span>
-                            Software Version
-                        </span>
-
-                        <strong>
-                            v2.4.1
-                        </strong>
-
-                    </div>
-
-
-                    <div class="info-row">
-
-                        <span>
-                            Battery Level
-                        </span>
-
-                        <strong id="batteryValue">
-                            85%
-                        </strong>
-
-                    </div>
-
-
-                    <div class="battery-bar">
-
-                        <div id="batteryProgress">
                         </div>
 
+                        <div class="form-grid settings-grid">
+                            <label>
+                                Default sensor quality (%)
+                                <input id="settingSensorQuality" type="number" min="0" max="100" step="1">
+                            </label>
+
+                            <label class="toggle-row">
+                                <span><strong>Calibration after reconnect</strong><small>Force a new calibration whenever the sensor reconnects.</small></span>
+                                <input id="settingRequireCalibration" type="checkbox">
+                            </label>
+
+                            <label class="toggle-row">
+                                <span><strong>Sound feedback</strong><small>Demo setting for future interface behaviour.</small></span>
+                                <input id="settingSound" type="checkbox">
+                            </label>
+                        </div>
                     </div>
 
-
-                    <div class="info-row">
-
-                        <span class="info-with-icon">
-
-                            <i class="bx bx-temperature"></i>
-
-                            Temperature
-
-                        </span>
-
-                        <strong id="temperatureValue">
-                            36.7 °C
-                        </strong>
-
+                    <div class="settings-footer">
+                        <div id="settingsMessage" class="inline-message"></div>
+                        <button id="saveSettingsButton" class="page-action" type="button">
+                            <i class="bx bx-save"></i>
+                            Save settings
+                        </button>
                     </div>
-
                 </section>
+            </div>
+        </section>
 
 
-
-                <!-- =========================================
-                     SYSTEM MESSAGES
-                     ========================================= -->
-
-                <section class="side-card">
-
-                    <div class="section-title">
-
-                        <i class="bx bx-message-rounded-dots"></i>
-
-                        SYSTEM MESSAGES
-
+        <!-- =================================================
+             SYSTEM VIEW
+             ================================================= -->
+        <section id="view-system" class="view">
+            <div class="page-shell">
+                <div class="page-heading">
+                    <div>
+                        <span class="eyebrow">DIAGNOSTICS</span>
+                        <h2>System</h2>
+                        <p>Runtime information for the EyeMee application, API and simulated device.</p>
                     </div>
+                </div>
 
-
-                    <div
-                        id="systemMessage"
-                        class="system-message"
-                    >
-
-                        Device ready.
-
-                        <br>
-
-                        Calibration required to start a measurement.
-
-                    </div>
-
-
-                    <div class="message-footer">
-
-                        <small id="messageTime">
-                            10:24:01 AM
-                        </small>
-
-
-                        <span class="info-icon">
-                            i
-                        </span>
-
-                    </div>
-
-                </section>
-
-
-
-                <!-- =========================================
-                     RECENT ACTIVITY
-                     ========================================= -->
-
-                <section class="side-card activity-card">
-
-                    <div class="section-title">
-
-                        <i class="bx bx-time-five"></i>
-
-                        RECENT ACTIVITY
-
-                    </div>
-
-
-                    <div
-                        id="activityList"
-                        class="activity-list"
-                    >
-
-
-                        <div class="activity-row">
-
-                            <span>
-                                09:15
-                            </span>
-
-                            <p>
-                                Calibration completed
-                            </p>
-
-                            <strong>
-                                <i class="bx bx-check-circle"></i>
-                            </strong>
-
+                <div class="system-grid">
+                    <section class="content-card system-info-card">
+                        <div class="card-heading">
+                            <div>
+                                <span class="eyebrow">DEVICE</span>
+                                <h3>Hardware & software</h3>
+                            </div>
+                            <i class="bx bx-chip card-heading-icon"></i>
                         </div>
 
+                        <div class="system-list">
+                            <div><span>Model</span><strong id="systemModel">--</strong></div>
+                            <div><span>Software</span><strong id="systemSoftware">--</strong></div>
+                            <div><span>Firmware</span><strong id="systemFirmware">--</strong></div>
+                            <div><span>Sensor</span><strong id="systemSensor">--</strong></div>
+                            <div><span>Device status</span><strong id="systemDeviceStatus">--</strong></div>
+                        </div>
+                    </section>
 
-                        <div class="activity-row">
-
-                            <span>
-                                09:10
-                            </span>
-
-                            <p>
-                                Device powered on
-                            </p>
-
-                            <strong>
-                                <i class="bx bx-check-circle"></i>
-                            </strong>
-
+                    <section class="content-card system-info-card">
+                        <div class="card-heading">
+                            <div>
+                                <span class="eyebrow">BACKEND</span>
+                                <h3>API runtime</h3>
+                            </div>
+                            <i class="bx bx-server card-heading-icon"></i>
                         </div>
 
-
-                        <div class="activity-row">
-
-                            <span>
-                                09:08
-                            </span>
-
-                            <p>
-                                Self test passed
-                            </p>
-
-                            <strong>
-                                <i class="bx bx-check-circle"></i>
-                            </strong>
-
+                        <div class="system-list">
+                            <div><span>API status</span><strong id="systemApiStatus" class="good-text">ONLINE</strong></div>
+                            <div><span>API address</span><strong id="systemApiUrl" class="system-url">--</strong></div>
+                            <div><span>Uptime</span><strong id="systemUptime">--</strong></div>
+                            <div><span>Runtime data</span><strong id="systemPersistence">--</strong></div>
+                            <div><span>Selected eye</span><strong id="systemSelectedEye">--</strong></div>
+                            <div><span>Patient</span><strong id="systemPatient">--</strong></div>
                         </div>
+                    </section>
+                </div>
 
+                <section class="content-card self-test-card">
+                    <div>
+                        <span class="eyebrow">DIAGNOSTIC ACTION</span>
+                        <h3>System self test</h3>
+                        <p>Run a simple backend-driven device self test. The current implementation passes when the sensor is connected.</p>
                     </div>
 
-
-                    <button
-                        class="history-link"
-                        type="button"
-                    >
-
-                        View full history
-
-                        <i class="bx bx-right-arrow-alt"></i>
-
-                    </button>
-
+                    <div class="self-test-actions">
+                        <div class="self-test-last">
+                            <span>Last self test</span>
+                            <div id="selfTestResult" class="self-test-result neutral">NOT RUN</div>
+                            <small id="selfTestMeta">No self test recorded</small>
+                        </div>
+                        <button id="selfTestButton" class="page-action" type="button">
+                            <i class="bx bx-shield-quarter"></i>
+                            Run self test
+                        </button>
+                    </div>
                 </section>
 
-            </aside>
-
-        </div>
+                <section class="content-card raw-state-card">
+                    <div class="card-heading">
+                        <div>
+                            <span class="eyebrow">DEBUG VIEW</span>
+                            <h3>Current runtime state</h3>
+                        </div>
+                    </div>
+                    <pre id="systemRawState">Loading...</pre>
+                </section>
+            </div>
+        </section>
 
     </main>
-
 </div>
 
-
-<!-- =========================================================
-     JAVASCRIPT
-     ========================================================= -->
-
 <script src="device.js"></script>
-
 </body>
-
 </html>

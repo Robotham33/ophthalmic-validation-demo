@@ -18,5 +18,10 @@ results/
 # Python test/cache
 .pytest_cache/
 
+# EyeMee generated runtime persistence
+# Keep local session data across Codespace restarts without dirtying Git.
+backend/data/runtime_state.json
+backend/data/*.tmp
+
 # OS / editor
 .DS_Store
