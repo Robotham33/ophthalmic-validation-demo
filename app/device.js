@@ -122,10 +122,56 @@ function getBackendBaseUrl() {
         return window.location.origin;
     }
 
+    // Production deployments (for example *.vercel.app) use one origin
+    // for both the frontend and the FastAPI routes.
+    if (!window.location.port || hostname.endsWith(".vercel.app")) {
+        return window.location.origin;
+    }
+
     return `${protocol}//${hostname}:8001`;
 }
 
 const API_BASE_URL = getBackendBaseUrl();
+const BROWSER_RUNTIME_KEY = "eyemee-runtime-v1";
+
+function runtimeSnapshot(state) {
+    const snapshot = JSON.parse(JSON.stringify(state ?? {}));
+
+    for (const key of [
+        "current_patient",
+        "current_measurement",
+        "server_time",
+        "uptime_seconds",
+        "runtime_persistence"
+    ]) {
+        delete snapshot[key];
+    }
+
+    return snapshot;
+}
+
+function saveBrowserRuntime(state) {
+    try {
+        localStorage.setItem(
+            BROWSER_RUNTIME_KEY,
+            JSON.stringify(runtimeSnapshot(state))
+        );
+    }
+    catch (error) {
+        console.warn("EyeMee browser persistence unavailable:", error);
+    }
+}
+
+function readBrowserRuntime() {
+    try {
+        const raw = localStorage.getItem(BROWSER_RUNTIME_KEY);
+        return raw ? JSON.parse(raw) : null;
+    }
+    catch (error) {
+        console.warn("EyeMee browser runtime could not be read:", error);
+        return null;
+    }
+}
 
 
 /* =========================================================
@@ -159,6 +205,19 @@ async function apiRequest(endpoint, options = {}) {
 
 function getDeviceStatus() {
     return apiRequest("/api/status");
+}
+
+function restoreRuntime(state) {
+    return apiRequest(
+        "/api/runtime/restore",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ state })
+        }
+    );
 }
 
 function sendSensorCommand(command) {
@@ -306,8 +365,17 @@ function initialViewFromHash() {
 
 async function loadApplicationState() {
     try {
-        const state = await getDeviceStatus();
-        applyState(state);
+        const savedRuntime = readBrowserRuntime();
+
+        if (savedRuntime) {
+            const restored = await restoreRuntime(savedRuntime);
+            applyState(restored.device_state);
+        }
+        else {
+            const state = await getDeviceStatus();
+            applyState(state);
+        }
+
         setSystemApiOnline(true);
     }
     catch (error) {
@@ -323,6 +391,12 @@ async function loadApplicationState() {
 
 function applyState(state) {
     currentState = state;
+
+    // Save only stable backend states. Temporary UI states such as
+    // MEASURING/CALIBRATING must not survive a browser refresh.
+    if (!isBusy(state) && !state?.measurement_in_progress) {
+        saveBrowserRuntime(state);
+    }
 
     updateHeader(state);
     updateSensor(state);

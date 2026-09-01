@@ -1,6 +1,7 @@
 import asyncio
 import copy
 import json
+import os
 from datetime import datetime
 from pathlib import Path
 
@@ -17,7 +18,8 @@ from pydantic import BaseModel, Field
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 CONFIG_PATH = BASE_DIR / "backend" / "config" / "device_config.json"
-DATA_DIR = BASE_DIR / "backend" / "data"
+IS_VERCEL = bool(os.getenv("VERCEL") or os.getenv("VERCEL_ENV"))
+DATA_DIR = Path("/tmp/eyemee") if IS_VERCEL else BASE_DIR / "backend" / "data"
 RUNTIME_PATH = DATA_DIR / "runtime_state.json"
 FRONTEND_DIR = BASE_DIR / "app"
 APP_STARTED_AT = datetime.now()
@@ -224,7 +226,11 @@ def build_status():
     status["uptime_seconds"] = int(
         (datetime.now() - APP_STARTED_AT).total_seconds()
     )
-    status["runtime_persistence"] = str(RUNTIME_PATH.relative_to(BASE_DIR))
+    status["runtime_persistence"] = (
+        str(RUNTIME_PATH)
+        if IS_VERCEL
+        else str(RUNTIME_PATH.relative_to(BASE_DIR))
+    )
     return status
 
 
@@ -253,6 +259,10 @@ class PatientUpsert(BaseModel):
 
 class PatientSelection(BaseModel):
     patient_id: str
+
+
+class RuntimeRestore(BaseModel):
+    state: dict
 
 
 class SettingsUpdate(BaseModel):
@@ -322,6 +332,30 @@ def reload_configuration():
 
     return {
         "message": "Configuration reloaded",
+        "device_state": build_status(),
+    }
+
+
+# =========================================================
+# BROWSER RUNTIME RESTORE (VERCEL DEMO PERSISTENCE)
+# =========================================================
+
+@app.post("/api/runtime/restore")
+def restore_runtime(payload: RuntimeRestore):
+    """Restore a browser-saved EyeMee runtime snapshot.
+
+    Vercel function filesystems are ephemeral. The published demo therefore
+    keeps a browser copy of the runtime and can rehydrate a fresh function
+    instance from it.
+    """
+
+    global device_state
+
+    device_state = normalize_state(payload.state)
+    save_state()
+
+    return {
+        "message": "Runtime restored",
         "device_state": build_status(),
     }
 
