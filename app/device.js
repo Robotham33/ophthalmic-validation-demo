@@ -1074,6 +1074,20 @@ function renderHistoryPage(state) {
    SETTINGS PAGE
    ========================================================= */
 
+function updateRandomMeasurementInputs() {
+    const randomMode = Boolean(byId("settingRandomizeMeasurements")?.checked);
+
+    [
+        "settingLeftPressure",
+        "settingLeftQuality",
+        "settingRightPressure",
+        "settingRightQuality"
+    ].forEach(id => {
+        const input = byId(id);
+        if (input) input.disabled = randomMode;
+    });
+}
+
 function renderSettingsPage(state) {
     const settings = state.settings ?? {};
     const profile = state.measurement_profile ?? {};
@@ -1089,6 +1103,8 @@ function renderSettingsPage(state) {
     byId("settingRightPressure").value = right.pressure ?? 19.1;
     byId("settingRightQuality").value = right.quality ?? 94;
     byId("settingSensorQuality").value = settings.sensor_default_quality ?? 96;
+    byId("settingRandomizeMeasurements").checked = Boolean(settings.randomize_measurements);
+    updateRandomMeasurementInputs();
     byId("settingRequireCalibration").checked = Boolean(settings.require_calibration_after_reconnect);
     byId("settingSound").checked = Boolean(settings.sound_enabled);
 }
@@ -1365,6 +1381,7 @@ async function handleSaveSettings() {
         right_pressure: readNumber("settingRightPressure"),
         right_quality: readNumber("settingRightQuality"),
         sensor_default_quality: readNumber("settingSensorQuality"),
+        randomize_measurements: byId("settingRandomizeMeasurements").checked,
         require_calibration_after_reconnect: byId("settingRequireCalibration").checked,
         sound_enabled: byId("settingSound").checked
     };
@@ -1451,6 +1468,7 @@ function setupEvents() {
     byId("historyCategoryFilter").addEventListener("change", () => renderHistoryPage(currentState));
     byId("refreshHistoryButton").addEventListener("click", loadApplicationState);
 
+    byId("settingRandomizeMeasurements").addEventListener("change", updateRandomMeasurementInputs);
     byId("saveSettingsButton").addEventListener("click", handleSaveSettings);
     byId("selfTestButton").addEventListener("click", handleSelfTest);
 }

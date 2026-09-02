@@ -2,6 +2,7 @@ import asyncio
 import copy
 import json
 import os
+import random
 from datetime import datetime
 from pathlib import Path
 
@@ -98,6 +99,7 @@ def normalize_state(state: dict):
     settings.setdefault("valid_pressure_min", 5.0)
     settings.setdefault("valid_pressure_max", 35.0)
     settings.setdefault("sensor_default_quality", 96)
+    settings.setdefault("randomize_measurements", False)
     settings.setdefault("require_calibration_after_reconnect", False)
     settings.setdefault("sound_enabled", True)
 
@@ -275,6 +277,7 @@ class SettingsUpdate(BaseModel):
     right_pressure: float = Field(ge=0, le=100)
     right_quality: int = Field(ge=0, le=100)
     sensor_default_quality: int = Field(ge=0, le=100)
+    randomize_measurements: bool = False
     require_calibration_after_reconnect: bool
     sound_enabled: bool
 
@@ -633,13 +636,23 @@ async def start_measurement():
             detail="Measurement aborted: sensor disconnected",
         )
 
-    eye_profile = profile.get(
-        selected_eye,
-        {"pressure": 18.4, "quality": 96},
-    )
+    random_mode = bool(settings.get("randomize_measurements", False))
 
-    pressure = float(eye_profile.get("pressure", 18.4))
-    quality = int(eye_profile.get("quality", 96))
+    if random_mode:
+        # Randomized simulator input mode for validation/demo purposes.
+        # The generated values intentionally span both nominal and out-of-range
+        # cases so the normal acceptance logic can produce VALID or INVALID.
+        pressure = round(random.uniform(3.0, 40.0), 1)
+        quality = random.randint(60, 100)
+    else:
+        eye_profile = profile.get(
+            selected_eye,
+            {"pressure": 18.4, "quality": 96},
+        )
+
+        pressure = float(eye_profile.get("pressure", 18.4))
+        quality = int(eye_profile.get("quality", 96))
+
     minimum_pressure = float(settings.get("valid_pressure_min", 5.0))
     maximum_pressure = float(settings.get("valid_pressure_max", 35.0))
     minimum_quality = int(settings.get("minimum_quality", 70))
@@ -656,6 +669,7 @@ async def start_measurement():
         "pressure": pressure,
         "quality": quality,
         "result": result,
+        "input_mode": "RANDOM" if random_mode else "FIXED",
     }
 
     device_state["measurements"].insert(0, measurement)
@@ -700,6 +714,7 @@ def update_settings(settings: SettingsUpdate):
         "valid_pressure_min": settings.valid_pressure_min,
         "valid_pressure_max": settings.valid_pressure_max,
         "sensor_default_quality": settings.sensor_default_quality,
+        "randomize_measurements": settings.randomize_measurements,
         "require_calibration_after_reconnect": settings.require_calibration_after_reconnect,
         "sound_enabled": settings.sound_enabled,
     }
