@@ -2290,3 +2290,746 @@ button {
         text-align: left;
     }
 }
+
+/* =========================================================
+   EYEMEE RESPONSIVE LAYOUT HARDENING
+   Keeps the existing DOM, IDs and JavaScript behavior intact.
+   ========================================================= */
+
+/* Global overflow protection for Grid/Flex children. */
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.app-shell,
+.main-content,
+.view,
+.dashboard-layout,
+.dashboard-main,
+.dashboard-right,
+.top-card,
+.patient-panel,
+.eye-panel,
+.status-grid,
+.action-grid,
+.measurement-grid,
+.page-shell,
+.content-card,
+.summary-grid,
+.form-grid,
+.settings-grid,
+.profile-grid,
+.system-grid,
+.two-column-page,
+.calibration-layout {
+    min-width: 0;
+}
+
+img,
+svg,
+canvas {
+    max-width: 100%;
+}
+
+/* Desktop: reclaim horizontal space without changing the visual identity. */
+.app-shell {
+    grid-template-columns: 260px minmax(0, 1fr);
+    width: 100%;
+    max-width: 100vw;
+}
+
+.sidebar {
+    padding-left: 14px;
+    padding-right: 14px;
+}
+
+.brand {
+    height: 76px;
+    padding: 0 10px 12px;
+}
+
+.brand-image {
+    width: min(205px, 100%);
+    height: 66px;
+}
+
+.nav-item {
+    gap: 11px;
+    padding: 12px 13px;
+    font-size: 14px;
+}
+
+.sensor-module {
+    padding: 14px;
+}
+
+.sensor-device {
+    min-height: 105px;
+    gap: 10px;
+}
+
+.sensor-image-wrapper {
+    flex-basis: 66px;
+    width: 66px;
+    height: 104px;
+}
+
+.sensor-image {
+    width: 62px;
+    height: 100px;
+}
+
+.topbar {
+    min-width: 0;
+    min-height: 96px;
+    padding: 0 26px;
+    gap: 18px;
+}
+
+.topbar-title {
+    min-width: 0;
+}
+
+.topbar-title h1 {
+    font-size: clamp(20px, 1.55vw, 26px);
+}
+
+.topbar-title p {
+    font-size: 12px;
+}
+
+.topbar-right {
+    flex-shrink: 0;
+    gap: 14px;
+}
+
+.ready-pill {
+    min-width: 118px;
+    padding: 9px 14px;
+}
+
+.settings-button,
+.icon-action {
+    width: 44px;
+    height: 44px;
+}
+
+/* The previous 680px minimum forced horizontal overflow on laptop viewports. */
+.dashboard-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(250px, 285px);
+    gap: 18px;
+    width: 100%;
+    padding: 20px 22px 28px;
+}
+
+.dashboard-main,
+.dashboard-right {
+    width: 100%;
+    max-width: 100%;
+}
+
+.top-card {
+    grid-template-columns: minmax(255px, 0.82fr) minmax(0, 1.18fr);
+    min-height: 286px;
+}
+
+.patient-panel,
+.eye-panel {
+    min-width: 0;
+    padding: 21px;
+}
+
+.section-title {
+    margin-bottom: 16px;
+}
+
+.patient-panel label:not(:first-of-type) {
+    margin-top: 14px;
+}
+
+.input-wrapper input,
+.form-grid input,
+.profile-card input,
+.toolbar select {
+    height: 46px;
+}
+
+.full-width {
+    margin-top: 14px;
+}
+
+.eye-grid {
+    gap: 14px;
+}
+
+.eye-card {
+    width: 100%;
+    min-width: 0;
+    height: 190px;
+    padding: 14px 10px;
+}
+
+.eye-image {
+    width: min(145px, 88%);
+    height: 92px;
+}
+
+.eye-card strong {
+    font-size: 15px;
+}
+
+.status-grid,
+.action-grid {
+    gap: 14px;
+    margin-top: 14px;
+}
+
+.status-card {
+    min-width: 0;
+    min-height: 132px;
+    padding: 17px;
+}
+
+.primary-button {
+    height: 60px;
+    font-size: 14px;
+}
+
+.measurement-panel {
+    margin-top: 14px;
+    padding: 18px;
+}
+
+.measurement-grid {
+    gap: 12px;
+}
+
+.measurement-card {
+    min-width: 0;
+    min-height: 116px;
+    padding: 15px;
+}
+
+.side-card {
+    min-width: 0;
+    padding: 18px;
+}
+
+.dashboard-right {
+    gap: 14px;
+}
+
+.page-shell {
+    width: 100%;
+    max-width: 100%;
+    padding: 24px 26px 36px;
+}
+
+.content-card {
+    min-width: 0;
+}
+
+/* Wide laptop / scaled Windows display.
+   Move the auxiliary dashboard column below the main workflow before overflow can occur. */
+@media (max-width: 1450px) {
+    .app-shell {
+        grid-template-columns: 235px minmax(0, 1fr);
+    }
+
+    .brand-image {
+        width: 185px;
+    }
+
+    .nav-item {
+        padding: 11px 11px;
+        font-size: 13px;
+    }
+
+    .dashboard-layout {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 18px 20px 26px;
+    }
+
+    .dashboard-right {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        align-items: stretch;
+    }
+
+    .dashboard-right .side-card {
+        height: 100%;
+    }
+
+    .topbar {
+        padding: 0 22px;
+    }
+
+    .topbar-right {
+        gap: 10px;
+    }
+
+    .ready-pill {
+        min-width: 108px;
+        padding-left: 11px;
+        padding-right: 11px;
+    }
+
+    .clock strong {
+        font-size: 15px;
+    }
+
+    .settings-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Compact laptop. Keep the sidebar, but make the dashboard itself one-column where needed. */
+@media (max-width: 1120px) {
+    .app-shell {
+        grid-template-columns: 215px minmax(0, 1fr);
+    }
+
+    .sidebar {
+        padding: 15px 11px 18px;
+    }
+
+    .brand {
+        height: 66px;
+        padding: 0 8px 8px;
+    }
+
+    .brand-image {
+        width: 170px;
+        height: 58px;
+    }
+
+    .navigation {
+        gap: 4px;
+    }
+
+    .nav-item {
+        gap: 9px;
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    .nav-icon,
+    .nav-icon i {
+        width: 23px;
+        min-width: 23px;
+        font-size: 18px;
+    }
+
+    .sensor-module {
+        padding: 11px;
+    }
+
+    .sensor-device {
+        min-height: 90px;
+    }
+
+    .sensor-image-wrapper {
+        flex-basis: 52px;
+        width: 52px;
+        height: 84px;
+    }
+
+    .sensor-image {
+        width: 50px;
+        height: 82px;
+    }
+
+    .sensor-details strong {
+        font-size: 9px;
+    }
+
+    .sensor-details p {
+        font-size: 8px;
+    }
+
+    .topbar {
+        min-height: 88px;
+        padding: 14px 18px;
+    }
+
+    .topbar-title p {
+        display: none;
+    }
+
+    .top-card {
+        grid-template-columns: minmax(235px, 0.8fr) minmax(0, 1.2fr);
+    }
+
+    .dashboard-right {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .dashboard-right .side-card:last-child {
+        grid-column: 1 / -1;
+    }
+
+    .status-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .measurement-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/* Tablet / narrow browser: the sidebar becomes a top navigation instead of disappearing.
+   This preserves access to every view without adding new JavaScript. */
+@media (max-width: 920px) {
+    .app-shell {
+        display: block;
+        width: 100%;
+    }
+
+    .sidebar {
+        position: relative;
+        top: auto;
+        display: block;
+        width: 100%;
+        height: auto;
+        min-height: auto;
+        padding: 12px 14px 14px;
+        overflow: visible;
+        box-shadow: 0 8px 24px rgba(5, 32, 70, 0.12);
+    }
+
+    .sidebar::before {
+        display: none;
+    }
+
+    .brand {
+        height: 58px;
+        padding: 0 4px 8px;
+    }
+
+    .brand-image {
+        width: 165px;
+        height: 52px;
+    }
+
+    .navigation {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 7px;
+        margin: 0 0 12px;
+    }
+
+    .nav-item {
+        justify-content: center;
+        min-width: 0;
+        gap: 7px;
+        padding: 10px 7px;
+        font-size: 11px;
+        text-align: center;
+    }
+
+    .nav-item:hover {
+        transform: none;
+    }
+
+    .nav-item.active::after {
+        top: auto;
+        left: 25%;
+        right: 25%;
+        bottom: 0;
+        width: 50%;
+        height: 3px;
+        border-radius: 4px 4px 0 0;
+    }
+
+    .nav-icon {
+        width: 20px;
+        min-width: 20px;
+    }
+
+    .nav-icon i {
+        font-size: 17px;
+    }
+
+    .sensor-module {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+        margin: 0;
+        padding: 10px 12px;
+    }
+
+    .sensor-module-header {
+        margin: 0;
+        white-space: nowrap;
+    }
+
+    .sensor-device {
+        min-height: 0;
+    }
+
+    .sensor-image-wrapper {
+        display: none;
+    }
+
+    .sensor-details {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .sensor-details strong {
+        margin: 0;
+        white-space: nowrap;
+    }
+
+    .sensor-details p {
+        margin: 0;
+        white-space: nowrap;
+    }
+
+    .disconnect-button {
+        width: auto;
+        min-width: 110px;
+        margin: 0;
+        padding: 8px 12px;
+    }
+
+    .sidebar-footer {
+        display: none;
+    }
+
+    .topbar {
+        min-height: auto;
+        padding: 16px 18px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .topbar-title h1 {
+        font-size: 20px;
+    }
+
+    .topbar-right {
+        margin-left: auto;
+    }
+
+    .dashboard-layout,
+    .page-shell {
+        padding: 16px;
+    }
+
+    .top-card,
+    .two-column-page,
+    .calibration-layout,
+    .system-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .patient-panel {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .eye-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .dashboard-right {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .dashboard-right .side-card:last-child {
+        grid-column: auto;
+    }
+
+    .status-grid,
+    .measurement-grid,
+    .summary-grid,
+    .patient-list,
+    .process-steps {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .status-grid .status-card:last-child,
+    .measurement-grid .measurement-card:last-child {
+        grid-column: 1 / -1;
+    }
+
+    .profile-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .measurement-summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .table-wrapper {
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Phone / very narrow browser. */
+@media (max-width: 650px) {
+    .sidebar {
+        padding: 10px;
+    }
+
+    .brand {
+        justify-content: center;
+        height: 54px;
+    }
+
+    .brand-image {
+        width: 155px;
+        object-position: center;
+    }
+
+    .navigation {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .nav-item {
+        justify-content: flex-start;
+        padding: 10px 12px;
+        text-align: left;
+    }
+
+    .sensor-module {
+        grid-template-columns: 1fr auto;
+    }
+
+    .sensor-module-header {
+        display: none;
+    }
+
+    .sensor-details {
+        display: block;
+    }
+
+    .sensor-details p {
+        display: none;
+    }
+
+    .topbar {
+        align-items: flex-start;
+        padding: 14px;
+    }
+
+    .topbar-title {
+        width: 100%;
+    }
+
+    .topbar-title h1 {
+        font-size: 18px;
+        line-height: 1.3;
+    }
+
+    .topbar-right {
+        width: 100%;
+        margin-left: 0;
+        justify-content: space-between;
+        gap: 8px;
+    }
+
+    .ready-pill {
+        min-width: 0;
+        flex: 1;
+        padding: 8px 10px;
+    }
+
+    .clock {
+        flex: 1;
+    }
+
+    .settings-button,
+    .icon-action {
+        width: 40px;
+        height: 40px;
+        flex: 0 0 40px;
+    }
+
+    .dashboard-layout,
+    .page-shell {
+        padding: 12px;
+    }
+
+    .patient-panel,
+    .eye-panel,
+    .content-card,
+    .side-card,
+    .measurement-panel {
+        padding: 16px;
+    }
+
+    .eye-grid,
+    .action-grid,
+    .form-grid,
+    .settings-grid,
+    .patient-meta-grid,
+    .status-grid,
+    .measurement-grid,
+    .summary-grid,
+    .patient-list,
+    .process-steps,
+    .measurement-summary-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .status-grid .status-card:last-child,
+    .measurement-grid .measurement-card:last-child {
+        grid-column: auto;
+    }
+
+    .eye-card {
+        height: 165px;
+    }
+
+    .eye-image {
+        width: 130px;
+        height: 80px;
+    }
+
+    .primary-button {
+        height: 54px;
+    }
+
+    .page-heading,
+    .toolbar,
+    .self-test-card,
+    .settings-footer {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .toolbar-group {
+        width: 100%;
+    }
+
+    .toolbar label {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .history-entry {
+        grid-template-columns: 36px minmax(0, 1fr);
+    }
+
+    .history-entry .category-badge {
+        grid-column: 2;
+        justify-self: start;
+    }
+
+    .self-test-last {
+        text-align: left;
+    }
+}
