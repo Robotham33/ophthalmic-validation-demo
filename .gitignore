@@ -25,3 +25,4 @@ backend/data/*.tmp
 
 # OS / editor
 .DS_Store
+playwright-log.txt
