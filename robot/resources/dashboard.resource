@@ -73,3 +73,15 @@ Pressure Should Be
 Quality Should Be
     [Arguments]    ${expected_quality}
     Get Text    css=#qualityValue    ==    ${expected_quality}
+
+Device Should Be Not Ready
+    Wait Until Keyword Succeeds    10s    500ms    Get Text    css=#deviceStatus    ==    NOT READY
+
+Measurement Button Should Be Disabled
+    Wait For Elements State    css=#measureButton    disabled    timeout=10s
+
+Sensor Quality Should Be Unavailable
+    Wait Until Keyword Succeeds    10s    500ms    Get Text    css=.status-card:has(#sensorStatus) p    ==    Signal Quality: Unavailable
+
+Calibration Button Should Be Disabled
+    Wait For Elements State    css=#calibrateButton    disabled    timeout=10s
